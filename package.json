@@ -4,9 +4,20 @@
   "description": "Enforce PR merge destinations and branch naming conventions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": " rm -r dist & webpack && cp LICENSE README.md package.json ./dist",
     "start": "node index.js"
   },
   "author": "Matthew Hyland",
-  "license": "MIT"
+  "repository": "https://github.com/mph6083/Branch-Enforcer",
+  "license": "MIT",
+  "bin": {
+    "branch-enforcer": "./index.js"
+  },
+  "devDependencies": {
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "browser":{
+    "child_process": false
+    }  
 }

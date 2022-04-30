@@ -1,5 +1,5 @@
-const { exec, execSync } = require("child_process");
-
+const { execSync } = require("child_process");
+import { help } from "./help";
 
 function BranchEnforce() {}
 
@@ -59,7 +59,7 @@ function splitByEqual(argument) {
 function GetArgsAndValidate(args) {
   isHelperFunction(args);
 
-  const arguments = {};
+  const programArguments = {};
   for(let i = 2; i < args.length; i ++){
     let isFlag = false;
 
@@ -87,7 +87,7 @@ function GetArgsAndValidate(args) {
         argumentData = true;
       }
 
-      if(arguments.hasOwnProperty(argument) == true){
+      if(programArguments.hasOwnProperty(argument) == true){
         process.exitCode = 1;
         console.error("ERROR: Argument " + argument + " is set more than once.");
       }
@@ -95,16 +95,16 @@ function GetArgsAndValidate(args) {
         process.exitCode = 1;
         console.error("ERROR: Parameter " + argument + " has no inputed value.");
       }
-      arguments[argument] = argumentData;
+      programArguments[argument] = argumentData;
     }
     else if(splitByEqual(argument)[0]){
       let nil;
       [nil,argument,argumentData] = splitByEqual(argument);
-      if(arguments.hasOwnProperty(argument) == true){
+      if(programArguments.hasOwnProperty(argument) == true){
         process.exitCode = 1;
         console.error("ERROR: Argument " + argument + " is set more than once.");
       }
-      arguments[argument] = argumentData;
+      programArguments[argument] = argumentData;
     }
     else {
       process.exitCode = 1;
@@ -116,7 +116,7 @@ function GetArgsAndValidate(args) {
     process.exit(process.exitCode)
   }
 
-  return arguments;
+  return programArguments;
 
 }
 function getCurrentBranch(){
@@ -131,6 +131,7 @@ function getAllCommitsOnBranch(destinationBranch) {
 }
 async function main() {
   process.exitCode = 0; // initalize exit code
+  help();
 
   args = GetArgsAndValidate(process.argv);
   console.log(args);
