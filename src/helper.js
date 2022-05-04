@@ -1,4 +1,4 @@
-export function checkHelp(args){
+module.exports = function (args){
     if (
         args[2] == "-h" ||
         args[2] == "-help" ||
